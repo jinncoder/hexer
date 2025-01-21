@@ -1,3 +1,5 @@
+version: 2
+
 name: Release Hexer project
 
 on:
@@ -26,8 +28,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
-          # 'latest', 'nightly', or a semver
-          version: "~> v2"
+          version: "latest"
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}

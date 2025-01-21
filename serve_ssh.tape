@@ -7,7 +7,7 @@ Set Width 1200
 Set Height 600
 
 Sleep 1s
-Type "hexer serve"
+Type "go run github.com/archimoebius/hexer@latest serve"
 Sleep 500ms
 Enter
 Sleep 3.5s
