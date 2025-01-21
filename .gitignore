@@ -24,3 +24,6 @@ mkdocs/site
 system.log
 research
 storage
+.env
+
+dist/
