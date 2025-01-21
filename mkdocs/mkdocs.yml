@@ -18,6 +18,7 @@ site_url: https://archimoebius.github.io/hexer
 site_description: "Manage HTB credentials & flags with ease"
 site_author: ArchiMoebius
 copyright: Copyright &copy; 2021 - 2025 ArchiMoebius
+site_dir: ../docs
 
 theme:
   include_search_page: false
