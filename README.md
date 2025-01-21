@@ -58,6 +58,6 @@ Contributions, issues, and feature requests are welcome. Feel free to check issu
 
 ## 📝 License
 
-Copyright ©2023 ArchiMoebius.
+Copyright ©2025 ArchiMoebius.
 
 This project is [GPL](https://raw.githubusercontent.com/ArchiMoebius/hexer/main/LICENSE) licensed.
