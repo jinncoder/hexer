@@ -1,21 +1,30 @@
-name: vhs
+# .github/workflows/vhs.yml
+name: update gif
+
 on:
   push:
+    branches:
+      - main
     paths:
-      - vhs.tape
+      - "*.tape"
+  workflow_dispatch:
+
 jobs:
-  vhs:
+  gif:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: charmbracelet/vhs-action@v1
+      - uses: actions/checkout@v4
         with:
-          path: "serve_ssh.tape"
-      - uses: stefanzweifel/git-auto-commit-action@v4
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit_message: Update generated VHS GIF
+          commit_message: "chore: update generated VHS GIF"
           branch: main
           commit_user_name: vhs-action 📼
           commit_user_email: actions@github.com
