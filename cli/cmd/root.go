@@ -35,7 +35,6 @@ var RootCmd = &cobra.Command{
 			logger := util.SetLogger("./system.log")
 
 			if logger == nil {
-				fmt.Printf("[!] Failed to setup logger - bailing\n")
 				err := cmd.Help()
 
 				if err != nil {
@@ -45,8 +44,6 @@ var RootCmd = &cobra.Command{
 
 				os.Exit(0)
 			}
-
-			fmt.Fprint(os.Stderr, "[!] Failed to setup default logger - using ./system.log instead\n")
 		}
 
 		if config.Setting.Debug {

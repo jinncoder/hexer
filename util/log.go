@@ -2,7 +2,6 @@ package util
 
 import (
 	"io"
-	"log"
 	"os"
 	"time"
 
@@ -39,7 +38,6 @@ func SetLogger(filepath string) *logrus.Logger {
 	systemlog, err := os.OpenFile(filepath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0640) // #nosec
 
 	if err != nil {
-		log.Printf("Failed to create logfile %s\n", filepath)
 		return nil
 	}
 
@@ -57,7 +55,6 @@ func SetLogger(filepath string) *logrus.Logger {
 	})
 
 	if err != nil {
-		log.Printf("Failed to create logfile %s\n", filepath)
 		return nil
 	}
 
