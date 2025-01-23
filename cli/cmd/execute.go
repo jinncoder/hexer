@@ -85,7 +85,7 @@ var ExecuteCmd = &cobra.Command{
 					break
 				}
 				// Print the output from the PTY
-				os.Stdout.Write(buf[:n])
+				os.Stdout.Write(buf[:n]) // #nosec G104
 				stdoutOutput += string(buf[:n])
 			}
 		}()
@@ -129,7 +129,7 @@ var ExecuteCmd = &cobra.Command{
 			stdoutScan := bufio.NewScanner(stdoutPipe)
 			for stdoutScan.Scan() {
 				data := stdoutScan.Text() + "\n"
-				os.Stdout.WriteString(data)
+				os.Stdout.WriteString(data) // #nosec G104
 				stdoutOutput += data
 			}
 		}()
@@ -138,7 +138,7 @@ var ExecuteCmd = &cobra.Command{
 			stderrScan := bufio.NewScanner(stderrPipe)
 			for stderrScan.Scan() {
 				data := stderrScan.Text() + "\n"
-				os.Stderr.WriteString(data)
+				os.Stderr.WriteString(data) // #nosec G104
 				stderrOutput += data
 			}
 		}()
