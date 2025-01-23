@@ -74,7 +74,7 @@ func CreateSQLite3Database() (*sql.DB, error) {
 	// Create the output table if it doesn't exist
 	createTableSQL = `CREATE TABLE IF NOT EXISTS output (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	history_id INTEGER,
+	history_id INTEGER UNIQUE,
 	exitcode INTEGER,
 	stdout TEXT,
 	stderr TEXT

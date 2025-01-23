@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/archimoebius/hexer/cli/config"
+	"github.com/archimoebius/hexer/util"
 	"github.com/fatih/structs"
 	"github.com/leebenson/conform"
 	"github.com/sanity-io/litter"
@@ -61,7 +62,10 @@ func Load() {
 	viper.SetConfigName(".hexer.yaml")
 
 	viper.AddConfigPath(".")
-	viper.AddConfigPath("~/.config/hexer/")
+	local_config_path, err := util.ExpandTilde("~/.config/hexer/")
+	if err == nil {
+		viper.AddConfigPath(local_config_path)
+	}
 	viper.AddConfigPath("/etc/hexer/")
 
 	if err := viper.ReadInConfig(); err == nil {
@@ -70,7 +74,7 @@ func Load() {
 
 	// Unmarshal config into struct
 	Setting = &setting{}
-	err := viper.Unmarshal(Setting)
+	err = viper.Unmarshal(Setting)
 	if err != nil {
 		fmt.Printf("Failed: %v\n", err)
 		os.Exit(1)

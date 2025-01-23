@@ -236,9 +236,7 @@ func GetAuthenticatorCopyList(id string) ([]string, error) {
 
 	authenticatorForms = append(authenticatorForms, authenticator.Name)
 
-	if err != nil {
-		return authenticatorForms, err
-	}
+	authenticatorForms = append(authenticatorForms, fmt.Sprintf("%s\t%s %s", authenticator.IPv4, authenticator.Name, authenticator.FQDN))
 
 	return authenticatorForms, nil
 }

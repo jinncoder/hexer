@@ -9,9 +9,8 @@ ssh-key: >
   5f8uOU9ODAzV1bmiKBvUAAAACnVzZXJAY29tcHkBAgM=
   -----END OPENSSH PRIVATE KEY-----
 local: false
-ip: 127.0.0.1
-# ip: 192.168.7.230
-port: 2222
+ip: 192.168.56.1
+port: 4242
 database_ip: 127.0.0.1
 database_port: 8090
 hostkey: >

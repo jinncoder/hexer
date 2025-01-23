@@ -21,10 +21,10 @@ edr:
 	dot -Tsvg mkdocs/schema.dot > mkdocs/schema.svg
 
 freebsd: lint security docs
-	@env CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/hexer-freebsd_amd64 main.go
+	@env CGO_ENABLED=1 GOOS=freebsd GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/hexer-freebsd_amd64 main.go
 
 linux: lint security docs
-	@env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/hexer-linux_amd64 main.go
+	@env CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/hexer-linux_amd64 main.go
 
 docs: edr
 	rm -rf mkdocs/docs/usage/ || echo ''
@@ -45,8 +45,8 @@ dep: ## Get the dependencies # go get github.com/goreleaser/goreleaser
 	@go install github.com/securego/gosec/v2/cmd/gosec@latest
 
 lint: ## Lint the files
-	@env CGO_ENABLED=0 go fmt ${GOFILES}
-	@env CGO_ENABLED=0 go vet ${GOFILESNOTEST}
+	@env CGO_ENABLED=1 go fmt ${GOFILES}
+	@env CGO_ENABLED=1 go vet ${GOFILESNOTEST}
 
 security: dep tidy
 	@go run github.com/securego/gosec/v2/cmd/gosec@latest -quiet ./...
