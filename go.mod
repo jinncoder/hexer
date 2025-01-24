@@ -11,6 +11,7 @@ require (
 	github.com/charmbracelet/log v0.4.0
 	github.com/charmbracelet/ssh v0.0.0-20241211182756-4fe22b0f1b7c
 	github.com/charmbracelet/wish v1.4.4
+	github.com/creack/pty v1.1.21
 	github.com/fatih/structs v1.1.0
 	github.com/google/uuid v1.6.0
 	github.com/leebenson/conform v1.2.2
@@ -63,7 +64,6 @@ require (
 	github.com/charmbracelet/x/term v0.2.1 // indirect
 	github.com/charmbracelet/x/termios v0.1.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
-	github.com/creack/pty v1.1.21 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
 	github.com/domodwyer/mailyak/v3 v3.6.2 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
