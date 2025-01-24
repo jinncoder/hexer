@@ -53,9 +53,9 @@ func Load() {
 		viper.AddConfigPath(local_config_path)
 	}
 	viper.AddConfigPath("/etc/hexer/")
-	// if err := viper.ReadInConfig(); err == nil {
-	// 	fmt.Fprintf(os.Stderr, "Using config file: %s\n", viper.ConfigFileUsed())
-	// }
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to read configuration %s\n", viper.ConfigFileUsed())
+	}
 
 	// Unmarshal config into struct
 	Setting = &setting{}
