@@ -9,6 +9,7 @@ import (
 )
 
 type Styles struct {
+	Background string
 	Base,
 	HeaderText,
 	Status,
@@ -42,6 +43,11 @@ func NewStyles(lg *lipgloss.Renderer) *Styles {
 
 	if style == nil {
 		s := Styles{}
+
+		s.Background = "light"
+		if lg.HasDarkBackground() {
+			s.Background = "dark"
+		}
 
 		s.Base = lg.NewStyle().
 			Padding(1, 4, 0, 1).

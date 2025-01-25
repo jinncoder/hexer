@@ -99,6 +99,10 @@ func NewModelListNote(session *ssh.Session, lfi *constant.ListNoteInput) (*Model
 			m.keys.editItem,
 			m.keys.removeItem,
 			key.NewBinding(
+				key.WithKeys("ctrl+p"),
+				key.WithHelp("ctrl+p", "preview"),
+			),
+			key.NewBinding(
 				key.WithKeys("esc"),
 				key.WithHelp("esc", "back"),
 			),
@@ -150,7 +154,10 @@ func (m ModelListNote) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, constant.SwitchModeCmd(constant.ModeMakeNote,
 				constant.NewMakeNoteInput(m.Width, m.Height, m.ProjectId, id, m.ProjectPickerLastTabIndex),
 			)
-
+		case "ctrl+p":
+			return m, constant.SwitchModeCmd(constant.ModeViewNote,
+				constant.NewViewNoteInput(m.Width, m.Height, m.ProjectId, id, m.ProjectPickerLastTabIndex),
+			)
 		case "x":
 
 			if view.ConfirmDelete(m.Session, title) {

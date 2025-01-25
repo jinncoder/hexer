@@ -38,19 +38,19 @@ type Mode int
 
 const (
 	ModeListProject = Mode(iota)
+	ModeListProjectFlag
 	ModeListAuthenticator
-	ModeViewProject
 	ModeMakeProject
 	ModeMakeAuthenticator
-	NewModelCopyAuthenticator
-	ModePickProject
-	ModeListProjectFlag
 	ModeMakeFlag
 	ModeMakeNote
 	ModeMakeCredential
-	ModeCopyCredential
 	ModeMakeUser
-	// ModeEditProject
+	ModeViewProject
+	ModeCopyCredential
+	ModeViewNote
+	ModePickProject
+	NewModelCopyAuthenticator
 )
 
 // SwitchModeInput values --------------------------------------------------
@@ -354,3 +354,25 @@ func NewMakeNoteInput(width int, height int, projectId string, noteId string, la
 }
 
 func (in *MakeNoteInput) isSwitchModeInput() {}
+
+// --------------------------------------------------------- View Note Input
+
+type ViewNoteInput struct {
+	Width        int
+	Height       int
+	ProjectId    string
+	NoteId       string
+	LastTabIndex int
+}
+
+func NewViewNoteInput(width int, height int, projectId string, noteId string, lastTabIndex int) *ViewNoteInput {
+	return &ViewNoteInput{
+		Width:        width,
+		Height:       height,
+		ProjectId:    projectId,
+		NoteId:       noteId,
+		LastTabIndex: lastTabIndex,
+	}
+}
+
+func (in *ViewNoteInput) isSwitchModeInput() {}

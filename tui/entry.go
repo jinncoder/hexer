@@ -226,6 +226,16 @@ func (m *Model) setChild(mode constant.Mode, switchIn constant.SwitchModeInput) 
 			return err
 		}
 		m.child = child
+	case constant.ModeViewNote:
+		vni, ok := switchIn.(*constant.ViewNoteInput)
+		if !ok {
+			return ErrInvalidTypeAssertion
+		}
+		child, err := note.NewModelViewNote(m.session, vni)
+		if err != nil {
+			return err
+		}
+		m.child = child
 	default:
 		return ErrInvalidSwitchMode
 	}
