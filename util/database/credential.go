@@ -258,6 +258,8 @@ func GetCredentialCopyList(id string) ([]string, error) {
 	authenticator, credential, err := GetCredentialById(id)
 
 	credentialForms = append(credentialForms, credential.Value)
+	credentialForms = append(credentialForms, credential.UserName)
+
 	credentialForms = append(credentialForms, CredentialFormImpacket(authenticator, credential)...)
 	credentialForms = append(credentialForms, CredentialFormNetExec(authenticator, credential)...)
 	credentialForms = append(credentialForms, CredentialFormEvilWinRM(authenticator, credential)...)
