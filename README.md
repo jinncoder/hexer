@@ -12,6 +12,21 @@ A light-weight and easy to deploy SSH application which leverages Golang to expo
 
 > 💡 Check the [`documentation`](https://archimoebius.github.io/hexer/) for usage and more information.
 
+## Examples
+
+
+### Serve Command
+
+Using the local mode with the `serve` command.
+
+<img src="https://raw.githubusercontent.com/ArchiMoebius/hexer/main/mkdocs/docs/images/server.gif" width="1920px" height="1024px" alt="serve example"/></br>
+
+### Notes...
+
+Using the local mode with the commands: serve, execute, and note.
+
+<img src="https://raw.githubusercontent.com/ArchiMoebius/hexer/main/mkdocs/docs/images/note.gif" width="1920px" height="1024px" alt="note example"/></br>
+
 ## Quickstart
 
 ### Setup Golang (version of at least 1.23 required)
