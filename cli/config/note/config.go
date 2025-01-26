@@ -17,13 +17,14 @@ var Setting *setting
 
 // initial settings (defaults)
 var initial = &setting{
-	IP:        "127.0.0.1",
-	Port:      "2222",
-	Local:     false,
-	Export:    false,
-	ProjectId: "",
-	SSHKey:    "",
-	SSHUser:   "",
+	IP:          "127.0.0.1",
+	Port:        "2222",
+	Local:       false,
+	Export:      false,
+	ProjectId:   "",
+	SSHKey:      "",
+	SSHUser:     "",
+	StoragePath: "./storage",
 }
 
 // Create private data struct to hold setting options.
@@ -31,13 +32,14 @@ var initial = &setting{
 // `struct` => fatih structs tag
 // `env` => environment variable name
 type setting struct {
-	Port      string `mapstructure:"port" structs:"port" env:"hexer_PORT"`
-	IP        string `mapstructure:"ip" structs:"ip" env:"hexer_IP"`
-	ProjectId string `mapstructure:"project-id" structs:"project-id" env:"hexer_note_PROJECT_ID"`
-	Local     bool   `mapstructure:"local" structs:"local" env:"hexer_LOCAL"`
-	Export    bool   `mapstructure:"export" structs:"export" env:"hexer_note_EXPORT"`
-	SSHKey    string `mapstructure:"ssh-key" structs:"ssh-key" env:"hexer_note_SSHKEY"`
-	SSHUser   string `mapstructure:"ssh-user" structs:"ssh-user" env:"hexer_note_SSHUSER"`
+	Port        string `mapstructure:"port" structs:"port" env:"hexer_PORT"`
+	IP          string `mapstructure:"ip" structs:"ip" env:"hexer_IP"`
+	ProjectId   string `mapstructure:"project-id" structs:"project-id" env:"hexer_note_PROJECT_ID"`
+	Local       bool   `mapstructure:"local" structs:"local" env:"hexer_LOCAL"`
+	Export      bool   `mapstructure:"export" structs:"export" env:"hexer_note_EXPORT"`
+	SSHKey      string `mapstructure:"ssh-key" structs:"ssh-key" env:"hexer_note_SSHKEY"`
+	SSHUser     string `mapstructure:"ssh-user" structs:"ssh-user" env:"hexer_note_SSHUSER"`
+	StoragePath string `mapstructure:"storage-path" structs:"storage-path"`
 }
 
 func Load() {
@@ -87,6 +89,7 @@ func CommandInit(command *cobra.Command) error {
 	command.PersistentFlags().String("ssh-key", initial.SSHKey, "The private SSH key to leverage to connecting (if not local)")
 	command.PersistentFlags().String("ssh-user", initial.SSHUser, "The private SSH user to leverage to connecting (if not local)")
 	command.PersistentFlags().String("project-id", initial.ProjectId, "The project ID to record notes under")
+	command.PersistentFlags().String("storage-path", initial.StoragePath, "The folder to store the database in - (if local)")
 	command.PersistentFlags().Bool("export", initial.Export, "Instead of uploading notes - download them")
 
 	for _, field := range structs.Fields(&setting{}) {

@@ -56,7 +56,7 @@ var NoteCmd = &cobra.Command{
 		if config.Setting.Export {
 
 			if config.Setting.Local {
-				_ = app.SetupPocketbase()
+				_ = app.SetupPocketbase(config.Setting.StoragePath)
 
 				data, err := database.GetNotesAsMarkdown(config.Setting.ProjectId)
 				if err != nil {
@@ -147,7 +147,7 @@ var NoteCmd = &cobra.Command{
 			}
 
 			if config.Setting.Local {
-				_ = app.SetupPocketbase()
+				_ = app.SetupPocketbase(config.Setting.StoragePath)
 
 				err := database.AddNote(config.Setting.ProjectId, noteTitle, note)
 

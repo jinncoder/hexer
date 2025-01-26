@@ -50,13 +50,13 @@ func NewApplication() Application {
 
 var pocketbaseApplication *pocketbase.PocketBase = nil
 
-func SetupPocketbase() *pocketbase.PocketBase {
+func SetupPocketbase(storagePath string) *pocketbase.PocketBase {
 	if pocketbaseApplication == nil {
 		// loosely check if it was executed using "go run"
 		isGoRun := strings.HasPrefix(os.Args[0], os.TempDir())
 
 		pocketbaseApplication = pocketbase.NewWithConfig(pocketbase.Config{
-			DefaultDataDir:  serveConfig.Setting.StoragePath,
+			DefaultDataDir:  storagePath,
 			DefaultDev:      false,
 			HideStartBanner: !isGoRun,
 		})
@@ -91,7 +91,7 @@ func SetupPocketbase() *pocketbase.PocketBase {
 }
 
 func (a *app) Start() error {
-	app := SetupPocketbase()
+	app := SetupPocketbase(serveConfig.Setting.StoragePath)
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
