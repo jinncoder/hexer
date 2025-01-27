@@ -12,7 +12,7 @@ require (
 	github.com/charmbracelet/log v0.4.0
 	github.com/charmbracelet/ssh v0.0.0-20241211182756-4fe22b0f1b7c
 	github.com/charmbracelet/wish v1.4.4
-	github.com/creack/pty v1.1.21
+	github.com/creack/pty v1.1.24
 	github.com/fatih/structs v1.1.0
 	github.com/google/uuid v1.6.0
 	github.com/leebenson/conform v1.2.2
