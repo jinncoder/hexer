@@ -83,7 +83,7 @@ var NoteCmd = &cobra.Command{
 				os.Exit(3)
 			}
 
-			historySelection, err := util.GetHistory(db, 20)
+			historySelection, err := util.GetHistory(db, 2000)
 			if err != nil {
 				util.Logger.Error(fmt.Sprintf("error querying database: %v", err))
 				os.Exit(3)
@@ -92,7 +92,7 @@ var NoteCmd = &cobra.Command{
 			var options []huh.Option[util.HistorySelection]
 			var selectedHistoryItems []util.HistorySelection
 			for _, cmd := range historySelection {
-				options = append(options, huh.NewOption(cmd.Command, cmd))
+				options = append(options, huh.NewOption(fmt.Sprintf("%d] %s", cmd.Id, cmd.Command), cmd))
 			}
 			var noteTitle = ""
 			var noteComment = ""
@@ -117,6 +117,7 @@ var NoteCmd = &cobra.Command{
 						Description("If a command starts with `[!]` - its exitcode was none 0").
 						Height(25).
 						Value(&selectedHistoryItems).
+						Key("Id").
 						Options(options...),
 				),
 			).WithTheme(huh.ThemeCharm())

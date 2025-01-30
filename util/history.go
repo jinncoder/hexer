@@ -89,7 +89,7 @@ func CreateSQLite3Database() (*sql.DB, error) {
 }
 
 func GetHistory(db *sql.DB, limit int) ([]HistorySelection, error) {
-	query := "SELECT history.id, o.exitcode, executable, arguments FROM history JOIN output o ON history.id == o.history_id LIMIT ?"
+	query := "SELECT history.id, o.exitcode, executable, arguments FROM history JOIN output o ON history.id == o.history_id ORDER BY history.id desc LIMIT ?"
 
 	rows, err := db.Query(query, limit)
 	if err != nil {
