@@ -196,7 +196,7 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 				var user = users[0]
 
-				database.VerifyUser(user.Id)
+				err = database.VerifyUser(user.Id)
 
 				if err != nil {
 					(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
