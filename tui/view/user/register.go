@@ -197,6 +197,12 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				var user = users[0]
 
 				database.VerifyUser(user.Id)
+
+				if err != nil {
+					(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
+					(*m.Session).Exit(0)                                                   // #nosec G104
+				}
+
 				cache.AddUserKeyToCache(user.Name, user.SSHPublicKey)
 			}
 
