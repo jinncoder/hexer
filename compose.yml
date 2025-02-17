@@ -1,0 +1,45 @@
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: ./docker/builder
+    image: "builder"
+    container_name: "hexer_builder"
+    stop_grace_period: 30s
+
+  hexer:
+    depends_on:
+      - builder
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: "hexer"
+    ports:
+      - 4242:4242
+      - 8090:8090
+    volumes:
+      - ${PWD}/data/logs:/app/logs:rw
+      - ${PWD}/data/storage:/app/storage:rw
+    container_name: hexer
+    stdin_open: false
+    tty: true
+    environment:
+      - HEXER_LOG_BASEPATH:/app/logs
+      - HEXER_STORAGE_PATH:/app/storage
+      - HEXER_CONFIG:/app/.hexer.yaml
+      - TERM=xterm-256color
+      - EDITOR=
+    deploy:
+      resources:
+        limits:
+          cpus: 4
+          memory: 2G
+        reservations:
+          cpus: 2
+          memory: 1G
+    healthcheck:
+      test: nc -nvz 0.0.0.0 4242
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

@@ -1,0 +1,12 @@
+FROM golang:alpine AS dev
+
+RUN mkdir /src
+WORKDIR /src
+
+ADD . /src/
+
+RUN apk add --no-cache sqlite make git alpine-sdk libx11-dev
+
+RUN go mod download
+
+CMD ["go", "run", "main.go", "serve"]

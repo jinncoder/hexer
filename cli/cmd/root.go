@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const VERSION = "2025.01.20"
+const VERSION = "2025.02.17"
 
 func CallPersistentPreRun(cmd *cobra.Command, args []string) {
 	if parent := cmd.Parent(); parent != nil {

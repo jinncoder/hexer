@@ -32,13 +32,13 @@ var initial = &setting{
 // `struct` => fatih structs tag
 // `env` => environment variable name
 type setting struct {
-	Port        string `mapstructure:"port" structs:"port" env:"hexer_PORT"`
-	IP          string `mapstructure:"ip" structs:"ip" env:"hexer_IP"`
-	ProjectId   string `mapstructure:"project-id" structs:"project-id" env:"hexer_note_PROJECT_ID"`
-	Local       bool   `mapstructure:"local" structs:"local" env:"hexer_LOCAL"`
-	Export      bool   `mapstructure:"export" structs:"export" env:"hexer_note_EXPORT"`
-	SSHKey      string `mapstructure:"ssh-key" structs:"ssh-key" env:"hexer_note_SSHKEY"`
-	SSHUser     string `mapstructure:"ssh-user" structs:"ssh-user" env:"hexer_note_SSHUSER"`
+	Port        string `mapstructure:"port" structs:"port" env:"HEXER_PORT"`
+	IP          string `mapstructure:"ip" structs:"ip" env:"HEXER_IP"`
+	ProjectId   string `mapstructure:"project-id" structs:"project-id" env:"HEXER_note_PROJECT_ID"`
+	Local       bool   `mapstructure:"local" structs:"local" env:"HEXER_LOCAL"`
+	Export      bool   `mapstructure:"export" structs:"export" env:"HEXER_note_EXPORT"`
+	SSHKey      string `mapstructure:"ssh-key" structs:"ssh-key" env:"HEXER_note_SSHKEY"`
+	SSHUser     string `mapstructure:"ssh-user" structs:"ssh-user" env:"HEXER_note_SSHUSER"`
 	StoragePath string `mapstructure:"storage-path" structs:"storage-path"`
 }
 

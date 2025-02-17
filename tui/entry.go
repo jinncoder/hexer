@@ -236,6 +236,16 @@ func (m *Model) setChild(mode constant.Mode, switchIn constant.SwitchModeInput) 
 			return err
 		}
 		m.child = child
+	case constant.ModeAdministrateUser:
+		maui, ok := switchIn.(*constant.MakeAdministrateUserInput)
+		if !ok {
+			return ErrInvalidTypeAssertion
+		}
+		child, err := user.NewModelModelAdministrateUser(m.session, maui)
+		if err != nil {
+			return err
+		}
+		m.child = child
 	default:
 		return ErrInvalidSwitchMode
 	}

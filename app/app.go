@@ -13,6 +13,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/archimoebius/hexer/app/cache"
 	serveConfig "github.com/archimoebius/hexer/cli/config/serve"
 	"github.com/archimoebius/hexer/tui"
 	"github.com/archimoebius/hexer/tui/constant"
@@ -144,16 +145,11 @@ func (a *app) Start() error {
 			done <- nil
 		}
 
-		var userToSSHPublicKey = make(map[string]ssh.PublicKey, len(users))
-
 		for _, user := range users {
-			parsed, _, _, _, _ := ssh.ParseAuthorizedKey(
-				[]byte(user.SSHPublicKey),
-			)
-			userToSSHPublicKey[user.Name] = parsed
+			cache.AddUserKeyToCache(user.Name, user.SSHPublicKey)
 		}
 
-		rootSFTPFilepath, _ := filepath.Abs("/tmp/hexer/sftp")
+		rootSFTPFilepath, _ := filepath.Abs(fmt.Sprintf("%s/sftp", serveConfig.Setting.StoragePath))
 
 		err = os.MkdirAll(rootSFTPFilepath, 0750)
 		if err != nil {
@@ -177,12 +173,16 @@ func (a *app) Start() error {
 					return true
 				}
 
-				userSSHPublicKey := userToSSHPublicKey[usernameHash]
+				userSSHPublicKey, err := cache.GetUserPublicSSHKeyFromCache(usernameHash)
+
+				if err != nil {
+					return false
+				}
 
 				return ssh.KeysEqual(key, userSSHPublicKey)
 			}),
 			// setup the sftp subsystem
-			wish.WithSubsystem("sftp", sftpSubsystem(rootSFTPFilepath, userToSSHPublicKey)),
+			wish.WithSubsystem("sftp", sftpSubsystem(rootSFTPFilepath)),
 			wish.WithMiddleware(
 				hexerMiddleware(),
 				scp.Middleware(handlerSFTP, handlerSFTP),

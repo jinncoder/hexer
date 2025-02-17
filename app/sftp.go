@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/archimoebius/hexer/app/cache"
 	"github.com/archimoebius/hexer/util"
 	"github.com/archimoebius/hexer/util/database"
 	"github.com/charmbracelet/ssh"
@@ -236,7 +237,7 @@ func (fs *InMemoryFileSystem) List(path string) (sftp.ListerAt, error) {
 	return ListerAt(fileInfos), nil
 }
 
-func sftpSubsystem(root string, userToSSHPublicKey map[string]ssh.PublicKey) ssh.SubsystemHandler {
+func sftpSubsystem(root string) ssh.SubsystemHandler {
 	return func(s ssh.Session) {
 
 		if !validateSessionUser(s) {
@@ -251,7 +252,12 @@ func sftpSubsystem(root string, userToSSHPublicKey map[string]ssh.PublicKey) ssh
 			return
 		}
 
-		userSSHPublicKey := userToSSHPublicKey[usernameHash]
+		userSSHPublicKey, err := cache.GetUserPublicSSHKeyFromCache(usernameHash)
+
+		if err != nil {
+			wish.Fatalln(s, err.Error())
+			return
+		}
 
 		if !ssh.KeysEqual(s.PublicKey(), userSSHPublicKey) {
 			wish.Fatalln(s, "You're account is not verified - please contact your administrator")
@@ -287,7 +293,7 @@ func sftpSubsystem(root string, userToSSHPublicKey map[string]ssh.PublicKey) ssh
 			return
 		}
 
-		err := database.AddNoteFromFilepath(projectId, fmt.Sprintf("%v", filepath))
+		err = database.AddNoteFromFilepath(projectId, fmt.Sprintf("%v", filepath))
 		if err == nil {
 			wish.Fatalln(s, fmt.Sprintf("sftp: upload failed %v", err))
 			return

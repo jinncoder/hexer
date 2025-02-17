@@ -24,7 +24,7 @@ require (
 	github.com/sanity-io/litter v1.5.8
 	github.com/sirupsen/logrus v1.9.3
 	github.com/snowzach/rotatefilehook v0.0.0-20220211133110-53752135082d
-	github.com/spf13/cobra v1.9.0
+	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.19.0
 	golang.design/x/clipboard v0.7.0
 	golang.org/x/crypto v0.33.0

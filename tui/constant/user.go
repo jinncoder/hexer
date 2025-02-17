@@ -15,3 +15,19 @@ func NewMakeUserInput(width int, height int) *MakeUserInput {
 }
 
 func (in *MakeUserInput) isSwitchModeInput() {}
+
+// --------------------------------------------------------- Make Administrate User Input
+
+type MakeAdministrateUserInput struct {
+	Width  int
+	Height int
+}
+
+func NewAdministrateUserInput(width int, height int) *MakeAdministrateUserInput {
+	return &MakeAdministrateUserInput{
+		Width:  width,
+		Height: height,
+	}
+}
+
+func (in *MakeAdministrateUserInput) isSwitchModeInput() {}

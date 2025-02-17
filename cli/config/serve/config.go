@@ -33,14 +33,14 @@ var initial = &setting{
 // `struct` => fatih structs tag
 // `env` => environment variable name
 type setting struct {
-	Port         string        `mapstructure:"port" structs:"port" env:"hexer_PORT"`
-	IP           string        `mapstructure:"ip" structs:"ip" env:"hexer_IP"`
-	DatabasePort string        `mapstructure:"database_port" structs:"database_port" env:"hexer_DATABASE_PORT"`
-	DatabaseIP   string        `mapstructure:"database_ip" structs:"database_ip" env:"hexer_DATABASE_IP"`
-	Local        bool          `mapstructure:"local" structs:"local" env:"hexer_LOCAL"`
+	Port         string        `mapstructure:"port" structs:"port" env:"HEXER_PORT"`
+	IP           string        `mapstructure:"ip" structs:"ip" env:"HEXER_IP"`
+	DatabasePort string        `mapstructure:"database_port" structs:"database_port" env:"HEXER_DATABASE_PORT"`
+	DatabaseIP   string        `mapstructure:"database_ip" structs:"database_ip" env:"HEXER_DATABASE_IP"`
+	Local        bool          `mapstructure:"local" structs:"local" env:"HEXER_LOCAL"`
 	Theme        *config.Theme `mapstructure:"theme" structs:"theme"`
 	HostKey      string        `mapstructure:"hostkey" structs:"hostkey"`
-	StoragePath  string        `mapstructure:"storage-path" structs:"storage-path"`
+	StoragePath  string        `mapstructure:"storage_path" structs:"storage_path" env:"HEXER_STORAGE_PATH"`
 }
 
 func Load() {
@@ -88,7 +88,7 @@ func CommandInit(command *cobra.Command) error {
 	command.PersistentFlags().String("ip", initial.IP, "The IP to listen on for SSH connections")
 	command.PersistentFlags().String("database_port", initial.DatabasePort, "The port to listen on for Database connections")
 	command.PersistentFlags().String("database_ip", initial.DatabaseIP, "The IP to listen on for Database connections")
-	command.PersistentFlags().String("storage-path", initial.StoragePath, "The folder to store the database in")
+	command.PersistentFlags().String("storage_path", initial.StoragePath, "The folder to store the database in")
 	command.PersistentFlags().Bool("local", false, "Don't start an SSH handler for the TUI, just run the TUI locally")
 
 	for _, field := range structs.Fields(&setting{}) {

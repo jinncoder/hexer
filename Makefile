@@ -26,7 +26,7 @@ freebsd: lint security docs
 linux: lint security docs
 	@env CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -trimpath ${LDFLAGS} ${GCFLAGS} ${ASMFLAGS} -o ${DIR}/hexer-linux_amd64 main.go
 
-docs: edr
+docs:
 	rm -rf mkdocs/docs/usage/ || echo ''
 	@mkdir -p mkdocs/docs/usage/
 	@go run main.go doc

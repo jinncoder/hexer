@@ -46,6 +46,7 @@ const (
 	ModeMakeNote
 	ModeMakeCredential
 	ModeMakeUser
+	ModeAdministrateUser
 	ModeViewProject
 	ModeCopyCredential
 	ModeViewNote

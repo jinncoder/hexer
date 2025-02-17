@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/archimoebius/hexer/app/cache"
 	"github.com/archimoebius/hexer/tui/constant"
 	"github.com/archimoebius/hexer/util/database"
 	"github.com/asaskevich/govalidator"
@@ -183,6 +184,20 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if err != nil {
 				(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
 				(*m.Session).Exit(0)                                                   // #nosec G104
+			}
+
+			if username == "administrate" {
+				users, err := database.GetUsersByName("administrate")
+
+				if err != nil {
+					(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
+					(*m.Session).Exit(0)                                                   // #nosec G104
+				}
+
+				var user = users[0]
+
+				database.VerifyUser(user.Id)
+				cache.AddUserKeyToCache(user.Name, user.SSHPublicKey)
 			}
 
 			(*m.Session).Write([]byte("Registered - now wait to be verified!")) // #nosec G104

@@ -40,6 +40,30 @@ func GetUsers() ([]User, error) {
 	return users, nil
 }
 
+func GetNewUsers() ([]User, error) {
+	user := []User{}
+
+	db, err := GetDatabaseInstance()
+
+	if err != nil {
+		return user, err
+	}
+
+	err = db.
+		Select("*").
+		From("users").
+		Where(dbx.HashExp{
+			"verified": false,
+		}).
+		All(&user)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}
+
 func GetUsersByName(username string) ([]User, error) {
 	user := []User{}
 
@@ -86,6 +110,30 @@ func GetUserById(id string) (User, error) {
 	}
 
 	return user, nil
+}
+func VerifyUser(id string) error {
+	db, err := GetDatabaseInstance()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Update(
+		"users",
+		dbx.Params{
+			"verified": true,
+		},
+		dbx.NewExp(
+			"id = {:id}",
+			dbx.Params{"id": id},
+		),
+	).Execute()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func AddUser(

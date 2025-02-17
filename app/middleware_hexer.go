@@ -87,6 +87,26 @@ func hexerMiddleware() wish.Middleware {
 			}
 		}
 
+		if s.User() == "administrate" {
+			m, err = tui.NewModel(
+				tui.NewInput(
+					&s,
+					constant.ModeAdministrateUser,
+					constant.NewAdministrateUserInput(pty.Window.Width, pty.Window.Height),
+				),
+			)
+
+			if err != nil {
+				util.Logger.Error(err)
+				s.Stderr().Write([]byte("Unable to initialize the administrate page - contact your adminstrator")) // #nosec G104
+				err = s.Exit(1)
+				if err != nil {
+					util.Logger.Error(err)
+					os.Exit(1)
+				}
+			}
+		}
+
 		return newProgram(m, append(bubbletea.MakeOptions(s), tea.WithAltScreen())...)
 	}
 
