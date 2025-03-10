@@ -27,8 +27,8 @@ require (
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.19.0
 	golang.design/x/clipboard v0.7.0
-	golang.org/x/crypto v0.33.0
-	golang.org/x/term v0.29.0
+	golang.org/x/crypto v0.36.0
+	golang.org/x/term v0.30.0
 )
 
 require (
@@ -123,9 +123,9 @@ require (
 	golang.org/x/mobile v0.0.0-20250210185054-b38b8813d607 // indirect
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/oauth2 v0.26.0 // indirect
-	golang.org/x/sync v0.11.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/api v0.221.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250212204824-5a70512c5d8b // indirect
