@@ -18,7 +18,7 @@ require (
 	github.com/leebenson/conform v1.2.2
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/muesli/termenv v0.15.3-0.20240618155329-98d742f6907a
-	github.com/pkg/sftp v1.13.7
+	github.com/pkg/sftp v1.13.8
 	github.com/pocketbase/dbx v1.11.0
 	github.com/pocketbase/pocketbase v0.25.4
 	github.com/sanity-io/litter v1.5.8
