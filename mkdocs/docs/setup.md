@@ -184,31 +184,37 @@ Registration always uses the username of `register` - and the SSH keypair you wi
 The first user to register the `administrate` handle - gains the priviledge of administration over all users which are registered. It's recommended to register this user as soon as the server is setup. This is accomplished as follows:
 
 1) Create a SSH keypair for the `administrate` user
+
     ```bash
     ssh-keygen -f $HOME/.ssh/id_hexer_administrate
     ```
 
 2) Fill in the form with the username/handle of `administrate` to setup the special user - this one can manage the registration status (and deletion) of accounts.
+
     ```bash
     ssh -i $HOME/.ssh/id_hexer_administrate -p 2222 register@127.0.0.1
     ```
 
 3) Create a SSH keypair for the your first user
+
     ```bash
     ssh-keygen -f $HOME/.ssh/id_hexer_username_here
     ```
 
 4) Register the first user
+
     ```bash
     ssh -i $HOME/.ssh/id_hexer_username_here -p 2222 register@127.0.0.1
     ```
 
 5) Using the `administrate` account - *verify* or *delete* the first user - ***note: we're using the administrate account for the first time!***
+
     ```bash
     ssh -i $HOME/.ssh/id_hexer_administrate -p 2222 administrate@127.0.0.1
     ```
 
 6) Login as the first user
+
     ```bash
     ssh -i $HOME/.ssh/id_hexer_username_here -p 2222 username_here@127.0.0.1
     ```
