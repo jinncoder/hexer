@@ -1,6 +1,7 @@
 module github.com/archimoebius/hexer
 
 go 1.23.3
+toolchain go1.24.1
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
@@ -18,7 +19,7 @@ require (
 	github.com/leebenson/conform v1.2.2
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/muesli/termenv v0.16.0
-	github.com/pkg/sftp v1.13.7
+	github.com/pkg/sftp v1.13.9
 	github.com/pocketbase/dbx v1.11.0
 	github.com/pocketbase/pocketbase v0.25.7
 	github.com/sanity-io/litter v1.5.8
