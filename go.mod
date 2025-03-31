@@ -1,17 +1,18 @@
 module github.com/archimoebius/hexer
 
 go 1.23.3
+toolchain go1.24.1
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/charmbracelet/bubbles v0.20.0
-	github.com/charmbracelet/bubbletea v1.3.3
+	github.com/charmbracelet/bubbletea v1.3.4
 	github.com/charmbracelet/glamour v0.8.0
 	github.com/charmbracelet/huh v0.6.0
-	github.com/charmbracelet/lipgloss v1.0.0
-	github.com/charmbracelet/log v0.4.0
+	github.com/charmbracelet/lipgloss v1.1.0
+	github.com/charmbracelet/log v0.4.1
 	github.com/charmbracelet/ssh v0.0.0-20250213143314-8712ec3ff3ef
-	github.com/charmbracelet/wish v1.4.6
+	github.com/charmbracelet/wish v1.4.7
 	github.com/creack/pty v1.1.24
 	github.com/fatih/structs v1.1.0
 	github.com/google/uuid v1.6.0
@@ -27,8 +28,8 @@ require (
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.19.0
 	golang.design/x/clipboard v0.7.0
-	golang.org/x/crypto v0.34.0
-	golang.org/x/term v0.29.0
+	golang.org/x/crypto v0.36.0
+	golang.org/x/term v0.30.0
 )
 
 require (
@@ -57,12 +58,14 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/catppuccin/go v0.3.0 // indirect
-	github.com/charmbracelet/keygen v0.5.1 // indirect
+	github.com/charmbracelet/colorprofile v0.2.3-0.20250311203215-f60798e515dc // indirect
+	github.com/charmbracelet/keygen v0.5.3 // indirect
 	github.com/charmbracelet/x/ansi v0.8.0 // indirect
+	github.com/charmbracelet/x/cellbuf v0.0.13-0.20250311204145-2c3ea96c31dd // indirect
 	github.com/charmbracelet/x/conpty v0.1.0 // indirect
 	github.com/charmbracelet/x/errors v0.0.0-20250221225047-052644df352f // indirect
 	github.com/charmbracelet/x/exp/strings v0.0.0-20250221225047-052644df352f // indirect
-	github.com/charmbracelet/x/input v0.3.3 // indirect
+	github.com/charmbracelet/x/input v0.3.4 // indirect
 	github.com/charmbracelet/x/term v0.2.1 // indirect
 	github.com/charmbracelet/x/termios v0.1.1 // indirect
 	github.com/charmbracelet/x/windows v0.2.0 // indirect
@@ -121,11 +124,11 @@ require (
 	golang.org/x/exp/shiny v0.0.0-20250218142911-aa4b98e5adaa // indirect
 	golang.org/x/image v0.24.0 // indirect
 	golang.org/x/mobile v0.0.0-20250218173827-cd096645fcd3 // indirect
-	golang.org/x/net v0.35.0 // indirect
+	golang.org/x/net v0.36.0 // indirect
 	golang.org/x/oauth2 v0.26.0 // indirect
-	golang.org/x/sync v0.11.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/api v0.222.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250219182151-9fdb1cabc7b2 // indirect
