@@ -16,7 +16,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/google/uuid v1.6.0
 	github.com/leebenson/conform v1.2.2
-	github.com/mattn/go-sqlite3 v1.14.24
+	github.com/mattn/go-sqlite3 v1.14.27
 	github.com/muesli/termenv v0.16.0
 	github.com/pkg/sftp v1.13.7
 	github.com/pocketbase/dbx v1.11.0
