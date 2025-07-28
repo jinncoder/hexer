@@ -21,7 +21,7 @@ hexer note [flags]
       --project-id string     The project ID to record notes under
       --ssh-key string        The private SSH key to leverage to connecting (if not local)
       --ssh-user string       The private SSH user to leverage to connecting (if not local)
-      --storage-path string   The folder to store the database in - (if local) (default "./storage")
+      --storage_path string   The folder to store the database in - (if local) (default "./storage")
 ```
 
 ### Options inherited from parent commands

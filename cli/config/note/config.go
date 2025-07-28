@@ -89,7 +89,7 @@ func CommandInit(command *cobra.Command) error {
 	command.PersistentFlags().String("ssh-key", initial.SSHKey, "The private SSH key to leverage to connecting (if not local)")
 	command.PersistentFlags().String("ssh-user", initial.SSHUser, "The private SSH user to leverage to connecting (if not local)")
 	command.PersistentFlags().String("project-id", initial.ProjectId, "The project ID to record notes under")
-	command.PersistentFlags().String("storage-path", initial.StoragePath, "The folder to store the database in - (if local)")
+	command.PersistentFlags().String("storage_path", initial.StoragePath, "The folder to store the database in - (if local)")
 	command.PersistentFlags().Bool("export", initial.Export, "Instead of uploading notes - download them")
 
 	for _, field := range structs.Fields(&setting{}) {

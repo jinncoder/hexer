@@ -18,6 +18,7 @@ hexer serve [flags]
   -h, --help                   help for serve
       --ip string              The IP to listen on for SSH connections (default "127.0.0.1")
       --local                  Don't start an SSH handler for the TUI, just run the TUI locally
+      --open_registration      Allow any user to register - auto approve the account
       --port string            The port to listen on for SSH connections (default "2222")
       --storage_path string    The folder to store the database in (default "./storage")
 ```
