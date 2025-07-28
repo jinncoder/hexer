@@ -25,6 +25,7 @@ import (
 	"github.com/charmbracelet/wish"
 	"github.com/charmbracelet/wish/activeterm"
 	"github.com/charmbracelet/wish/logging"
+	"github.com/charmbracelet/wish/ratelimiter"
 	"github.com/charmbracelet/wish/scp"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
@@ -138,6 +139,10 @@ func (a *app) Start() error {
 			done <- nil
 		}
 	} else {
+		if serveConfig.Setting.OpenRegistration {
+			log.Warn("Open registration enabled")
+		}
+
 		users, err := database.GetUsers()
 
 		if err != nil {
@@ -160,6 +165,7 @@ func (a *app) Start() error {
 		handlerSFTP := scp.NewFileSystemHandler(rootSFTPFilepath)
 
 		svr, err := wish.NewServer(
+			wish.WithVersion("ArchiMoebius/Hexer"),
 			wish.WithAddress(net.JoinHostPort(serveConfig.Setting.IP, serveConfig.Setting.Port)),
 			wish.WithHostKeyPEM(util.FixSSHKeyData(serveConfig.Setting.HostKey)),
 			wish.WithPublicKeyAuth(func(ctx ssh.Context, key ssh.PublicKey) bool {
@@ -189,6 +195,7 @@ func (a *app) Start() error {
 				onlyVerifiedUsersMiddleware(),
 				activeterm.Middleware(),
 				noSSHCommandMiddleware(),
+				ratelimiter.Middleware(ratelimiter.NewRateLimiter(1, 2, 1000)),
 				logging.Middleware(),
 			),
 		)

@@ -9,7 +9,7 @@ func noSSHCommandMiddleware() wish.Middleware {
 	return func(next ssh.Handler) ssh.Handler {
 		return func(s ssh.Session) {
 			if len(s.Command()) != 0 {
-				wish.Fatalln(s, "No commands are allowed - lulz - you hacker you")
+				wish.Fatalln(s, "\033cNo commands are allowed - lulz - you hacker you")
 				return
 			}
 			next(s)

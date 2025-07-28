@@ -10,7 +10,7 @@ func onlyVerifiedUsersMiddleware() wish.Middleware {
 		return func(s ssh.Session) {
 
 			if !validateSessionUser(s) {
-				wish.Fatalln(s, "You're account is not verified - please contact your administrator")
+				wish.Fatalln(s, "\033cYou're account is not verified - please contact your administrator")
 				return
 			}
 

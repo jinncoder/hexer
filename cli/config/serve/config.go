@@ -18,14 +18,15 @@ var Setting *setting
 
 // initial settings (defaults)
 var initial = &setting{
-	IP:           "127.0.0.1",
-	Port:         "2222",
-	DatabaseIP:   "127.0.0.1",
-	DatabasePort: "8090",
-	Local:        false,
-	Theme:        config.DefaultTheme(),
-	HostKey:      "",
-	StoragePath:  "./storage",
+	IP:               "127.0.0.1",
+	Port:             "2222",
+	DatabaseIP:       "127.0.0.1",
+	DatabasePort:     "8090",
+	Local:            false,
+	OpenRegistration: false,
+	Theme:            config.DefaultTheme(),
+	HostKey:          "",
+	StoragePath:      "./storage",
 }
 
 // Create private data struct to hold setting options.
@@ -33,14 +34,15 @@ var initial = &setting{
 // `struct` => fatih structs tag
 // `env` => environment variable name
 type setting struct {
-	Port         string        `mapstructure:"port" structs:"port" env:"HEXER_PORT"`
-	IP           string        `mapstructure:"ip" structs:"ip" env:"HEXER_IP"`
-	DatabasePort string        `mapstructure:"database_port" structs:"database_port" env:"HEXER_DATABASE_PORT"`
-	DatabaseIP   string        `mapstructure:"database_ip" structs:"database_ip" env:"HEXER_DATABASE_IP"`
-	Local        bool          `mapstructure:"local" structs:"local" env:"HEXER_LOCAL"`
-	Theme        *config.Theme `mapstructure:"theme" structs:"theme"`
-	HostKey      string        `mapstructure:"hostkey" structs:"hostkey"`
-	StoragePath  string        `mapstructure:"storage_path" structs:"storage_path" env:"HEXER_STORAGE_PATH"`
+	Port             string        `mapstructure:"port" structs:"port" env:"HEXER_PORT"`
+	IP               string        `mapstructure:"ip" structs:"ip" env:"HEXER_IP"`
+	DatabasePort     string        `mapstructure:"database_port" structs:"database_port" env:"HEXER_DATABASE_PORT"`
+	DatabaseIP       string        `mapstructure:"database_ip" structs:"database_ip" env:"HEXER_DATABASE_IP"`
+	Local            bool          `mapstructure:"local" structs:"local" env:"HEXER_LOCAL"`
+	OpenRegistration bool          `mapstructure:"open_registration" structs:"open_registration" env:"HEXER_REGISTRATION_OPEN"`
+	Theme            *config.Theme `mapstructure:"theme" structs:"theme"`
+	HostKey          string        `mapstructure:"hostkey" structs:"hostkey"`
+	StoragePath      string        `mapstructure:"storage_path" structs:"storage_path" env:"HEXER_STORAGE_PATH"`
 }
 
 func Load() {
@@ -90,6 +92,7 @@ func CommandInit(command *cobra.Command) error {
 	command.PersistentFlags().String("database_ip", initial.DatabaseIP, "The IP to listen on for Database connections")
 	command.PersistentFlags().String("storage_path", initial.StoragePath, "The folder to store the database in")
 	command.PersistentFlags().Bool("local", false, "Don't start an SSH handler for the TUI, just run the TUI locally")
+	command.PersistentFlags().Bool("open_registration", false, "Allow any user to register - auto approve the account")
 
 	for _, field := range structs.Fields(&setting{}) {
 		// Get the struct tag values

@@ -8,6 +8,7 @@ services:
       - HEXER_LOG_BASEPATH:/src/
       - HEXER_CONFIG:.hexer.yaml
       - TERM=xterm-256color
+      - EDITOR=vi
     build:
       dockerfile: ./docker/dev
       context: .

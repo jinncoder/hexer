@@ -1,5 +1,5 @@
-storage: ./data
-ssh-user: rhiza-r25cc94c9cd758d
+storage_path: ./data
+ssh-user: user
 ssh-key: >
   -----BEGIN OPENSSH PRIVATE KEY-----
   b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -9,10 +9,11 @@ ssh-key: >
   5f8uOU9ODAzV1bmiKBvUAAAACnVzZXJAY29tcHkBAgM=
   -----END OPENSSH PRIVATE KEY-----
 local: false
-ip: 192.168.56.1
+ip: 0.0.0.0
 port: 4242
 database_ip: 127.0.0.1
 database_port: 8090
+open_registration: true
 hostkey: >
   -----BEGIN RSA PRIVATE KEY-----
   MIIJKAIBAAKCAgEAy5zoGteSJ+fuL5kpuy2yvA2OCKaO25YYLifpG5XcxjlkRYe4

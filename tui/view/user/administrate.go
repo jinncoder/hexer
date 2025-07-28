@@ -101,8 +101,9 @@ func (m ModelAdministrateUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "esc":
-			(*m.Session).Write([]byte("K'bye!\n")) // #nosec G104
-			(*m.Session).Exit(0)                   // #nosec G104
+			(*m.Session).Write([]byte("\033cK'bye!\n")) // #nosec G104
+			(*m.Session).Exit(0)                        // #nosec G104
+			return m, nil
 		}
 	}
 
@@ -156,17 +157,16 @@ func (m ModelAdministrateUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			}
 
-			(*m.Session).Write([]byte("K'bye!\n")) // #nosec G104
-			(*m.Session).Exit(0)                   // #nosec G104
-		} else {
-			(*m.Session).Write([]byte("K'bye!\n")) // #nosec G104
-			(*m.Session).Exit(0)                   // #nosec G104
 		}
+		(*m.Session).Write([]byte("\033cK'bye!\n")) // #nosec G104
+		(*m.Session).Exit(0)                        // #nosec G104
+		return m, nil
 	}
 
 	if m.form.State == huh.StateAborted {
-		(*m.Session).Write([]byte("K'bye!\n")) // #nosec G104
-		(*m.Session).Exit(0)                   // #nosec G104
+		(*m.Session).Write([]byte("\033cK'bye!\n")) // #nosec G104
+		(*m.Session).Exit(0)                        // #nosec G104
+		return m, nil
 	}
 
 	return m, tea.Batch(cmds...)

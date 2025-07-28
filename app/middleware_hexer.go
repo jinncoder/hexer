@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	serveConfig "github.com/archimoebius/hexer/cli/config/serve"
 	"github.com/archimoebius/hexer/tui"
 	"github.com/archimoebius/hexer/tui/constant"
 	"github.com/archimoebius/hexer/util"
@@ -39,7 +40,7 @@ func hexerMiddleware() wish.Middleware {
 
 		if err != nil {
 			util.Logger.Error(err)
-			s.Stderr().Write([]byte("Unable to initialize the project listing - contact your adminstrator")) // #nosec G104
+			s.Stderr().Write([]byte("\033cUnable to initialize the project listing - contact your adminstrator")) // #nosec G104
 			err = s.Exit(1)
 			if err != nil {
 				util.Logger.Error(err)
@@ -58,7 +59,7 @@ func hexerMiddleware() wish.Middleware {
 
 			if err != nil {
 				util.Logger.Error(err)
-				s.Stderr().Write([]byte("Unable to initialize the project page - contact your adminstrator")) // #nosec G104
+				s.Stderr().Write([]byte("\033cUnable to initialize the project page - contact your adminstrator")) // #nosec G104
 				err = s.Exit(1)
 				if err != nil {
 					util.Logger.Error(err)
@@ -78,7 +79,7 @@ func hexerMiddleware() wish.Middleware {
 
 			if err != nil {
 				util.Logger.Error(err)
-				s.Stderr().Write([]byte("Unable to initialize the registration page - contact your adminstrator")) // #nosec G104
+				s.Stderr().Write([]byte("\033cUnable to initialize the registration page - contact your adminstrator")) // #nosec G104
 				err = s.Exit(1)
 				if err != nil {
 					util.Logger.Error(err)
@@ -88,6 +89,12 @@ func hexerMiddleware() wish.Middleware {
 		}
 
 		if s.User() == "administrate" {
+			if serveConfig.Setting.OpenRegistration {
+				s.Stderr().Write([]byte("\033cadministrate user is disabled when open registartion is enabled"))
+				err = s.Exit(1)
+				return nil
+			}
+
 			m, err = tui.NewModel(
 				tui.NewInput(
 					&s,
@@ -98,7 +105,7 @@ func hexerMiddleware() wish.Middleware {
 
 			if err != nil {
 				util.Logger.Error(err)
-				s.Stderr().Write([]byte("Unable to initialize the administrate page - contact your adminstrator")) // #nosec G104
+				s.Stderr().Write([]byte("\033cUnable to initialize the administrate page - contact your adminstrator")) // #nosec G104
 				err = s.Exit(1)
 				if err != nil {
 					util.Logger.Error(err)

@@ -84,6 +84,7 @@ func NewModelMakeNote(session *ssh.Session, mfi *constant.MakeNoteInput) (*Model
 				Description("That pesky value that we all seek...").
 				Value(&noteValue).
 				Title("Value").
+				ExternalEditor(true). // TODO: enables RCE on the server depending on the env EDITOR - make a configuration bool...
 				WithHeight(m.Height/2),
 			// TODO: link notes to authenticators?
 			// ), huh.NewGroup(

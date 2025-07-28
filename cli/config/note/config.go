@@ -39,7 +39,7 @@ type setting struct {
 	Export      bool   `mapstructure:"export" structs:"export" env:"HEXER_note_EXPORT"`
 	SSHKey      string `mapstructure:"ssh-key" structs:"ssh-key" env:"HEXER_note_SSHKEY"`
 	SSHUser     string `mapstructure:"ssh-user" structs:"ssh-user" env:"HEXER_note_SSHUSER"`
-	StoragePath string `mapstructure:"storage-path" structs:"storage-path"`
+	StoragePath string `mapstructure:"storage_path" structs:"storage_path"`
 }
 
 func Load() {

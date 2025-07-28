@@ -14,6 +14,8 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/ssh"
 	"github.com/google/uuid"
+
+	serveConfig "github.com/archimoebius/hexer/cli/config/serve"
 )
 
 type ModelMakeUser struct {
@@ -37,6 +39,7 @@ func validateUsername(username string) error {
 	if database.DoesUserValueExist("name", username) == nil {
 		return fmt.Errorf("username already exists - try another")
 	}
+
 	return nil
 }
 
@@ -44,12 +47,15 @@ func validateEMail(email string) error {
 	if len(email) <= 1 || len(email) > 255 {
 		return fmt.Errorf("E-Mail required")
 	}
+
 	if !govalidator.IsEmail(email) {
 		return fmt.Errorf("invalid E-Mail")
 	}
+
 	if database.DoesUserValueExist("email", email) == nil {
 		return fmt.Errorf("email already exists - try another")
 	}
+
 	return nil
 }
 
@@ -57,9 +63,11 @@ func validateSSHPublicKey(sshPublicKey string) error {
 	_, _, _, _, err := ssh.ParseAuthorizedKey(
 		[]byte(sshPublicKey),
 	)
+
 	if err != nil {
 		return fmt.Errorf("failed to parse SSH Public Key")
 	}
+
 	if database.DoesUserValueExist("ssh_public_key", sshPublicKey) == nil {
 		return fmt.Errorf("ssh public key already exists - try another")
 	}
@@ -161,8 +169,9 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "esc":
-			(*m.Session).Write([]byte("K'bye!")) // #nosec G104
-			(*m.Session).Exit(0)                 // #nosec G104
+			(*m.Session).Write([]byte("\033cK'bye!")) // #nosec G104
+			(*m.Session).Exit(0)                      // #nosec G104
+			return m, tea.Quit
 		}
 	}
 
@@ -182,16 +191,20 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			err := database.AddUser(email, username, uuid.New().String(), sshpublickey)
 
 			if err != nil {
-				(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
-				(*m.Session).Exit(0)                                                   // #nosec G104
+				(*m.Session).Write([]byte(fmt.Sprintf("\033cFailed to register: %v", err))) // #nosec G104
+				(*m.Session).Exit(0)                                                        // #nosec G104
+				return m, tea.Quit
 			}
 
-			if username == "administrate" {
-				users, err := database.GetUsersByName("administrate")
+			msg := "\033cRegistered - now wait to be verified!"
+
+			if username == "administrate" || serveConfig.Setting.OpenRegistration {
+				users, err := database.GetUsersByName(username)
 
 				if err != nil {
-					(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
-					(*m.Session).Exit(0)                                                   // #nosec G104
+					(*m.Session).Write([]byte(fmt.Sprintf("\033cFailed to GetUsersByName: %v", err))) // #nosec G104
+					(*m.Session).Exit(0)                                                              // #nosec G104
+					return m, tea.Quit
 				}
 
 				var user = users[0]
@@ -199,24 +212,29 @@ func (m ModelMakeUser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				err = database.VerifyUser(user.Id)
 
 				if err != nil {
-					(*m.Session).Write([]byte(fmt.Sprintf("Failed to register: %v", err))) // #nosec G104
-					(*m.Session).Exit(0)                                                   // #nosec G104
+					(*m.Session).Write([]byte(fmt.Sprintf("\033cFailed to VerifyUser: %v", err))) // #nosec G104
+					(*m.Session).Exit(0)                                                          // #nosec G104
+					return m, tea.Quit
 				}
 
 				cache.AddUserKeyToCache(user.Name, user.SSHPublicKey)
+				msg = fmt.Sprintf("\033cRegistered - now you can authenticate!\n\n\tssh -i <your key> -p %s %s@%s\n", username, serveConfig.Setting.Port, serveConfig.Setting.IP)
 			}
 
-			(*m.Session).Write([]byte("Registered - now wait to be verified!")) // #nosec G104
-			(*m.Session).Exit(0)                                                // #nosec G104
+			(*m.Session).Write([]byte(msg)) // #nosec G104
+			(*m.Session).Exit(0)            // #nosec G104
+			return m, tea.Quit
 		} else {
-			(*m.Session).Write([]byte("K'bye!")) // #nosec G104
-			(*m.Session).Exit(0)                 // #nosec G104
+			(*m.Session).Write([]byte("\033cK'bye!")) // #nosec G104
+			(*m.Session).Exit(0)                      // #nosec G104
+			return m, tea.Quit
 		}
 	}
 
 	if m.form.State == huh.StateAborted {
-		(*m.Session).Write([]byte("K'bye!")) // #nosec G104
-		(*m.Session).Exit(0)                 // #nosec G104
+		(*m.Session).Write([]byte("\033cK'bye!")) // #nosec G104
+		(*m.Session).Exit(0)                      // #nosec G104
+		return m, tea.Quit
 	}
 
 	return m, tea.Batch(cmds...)

@@ -29,14 +29,14 @@ Using the local mode with the commands: serve, execute, and note.
 
 ## Quickstart
 
-### Setup Golang (version of at least 1.23 required)
+### Setup Golang (version of at least 1.24 required)
 
-Download at least version 1.23 of [`Golang`](https://go.dev/dl/) for example:
+Download at least version 1.24 of [`Golang`](https://go.dev/dl/) for example:
 
 ```bash
 sudo su -
-wget https://go.dev/dl/go1.23.5.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz
+wget https://go.dev/dl/go1.24.5.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.5.linux-amd64.tar.gz
 ```
 
 ### Setup Hexer
