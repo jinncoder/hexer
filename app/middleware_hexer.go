@@ -90,7 +90,7 @@ func hexerMiddleware() wish.Middleware {
 
 		if s.User() == "administrate" {
 			if serveConfig.Setting.OpenRegistration {
-				s.Stderr().Write([]byte("\033cadministrate user is disabled when open registartion is enabled"))
+				s.Stderr().Write([]byte("\033cadministrate user is disabled when open registartion is enabled")) // #nosec G104
 				err = s.Exit(1)
 				return nil
 			}
