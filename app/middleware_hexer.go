@@ -117,5 +117,5 @@ func hexerMiddleware() wish.Middleware {
 		return newProgram(m, append(bubbletea.MakeOptions(s), tea.WithAltScreen())...)
 	}
 
-	return bubbletea.MiddlewareWithProgramHandler(teaHandler, termenv.ANSI256)
+	return bubbletea.MiddlewareWithProgramHandler(teaHandler, termenv.EnvColorProfile())
 }
